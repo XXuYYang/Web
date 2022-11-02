@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="expires" content="0">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="cache" content="no-cache">
+	<title>绘制画板</title>
+	<script src="https://s3.pstatp.com/cdn/expire-1-M/jquery/3.1.1/jquery.min.js"></script>
+</head>
+
+<body>
+	<div class="">
+		<input type="color" value="#ff5821" id="color" />
+		<input type="range" class="range" min="1" max="20" value="1" id="cu">
+		<button type="button" id="cls">清除图像</button>
+		<button type="button" id="rectangle">绘制矩形</button>
+		<button type="button" id="round">绘制圆</button>
+
+		<p id="owner" style="width: 50px; float: right;">请登录</p>&nbsp;&nbsp;&nbsp;&nbsp;
+		<p id="user" style="width: 50px; float: right;">请登录</p>
+
+		<button type="button" id="submit">其他只读</button>
+		<input type="text" id="chmod" hidden value="0" />
+	</div>
+	<canvas id="canvas" width="900" height=500" style="border: 2px #550000 solid;">
+	</canvas>
+
+
+	<script type="text/javascript">
+
+		function GetQueryString(name) {
+			var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)");
+			var r = window.location.search.substr(1).match(reg);
+			if (r != null) return unescape(r[2]); return null;
+		}
+		submit.onclick = function () {
+			document.getElementById("chmod").value = "1";
+		}
+
+		if (GetQueryString("owner") != GetQueryString("user")) { document.getElementById("submit").setAttribute("hidden", true); }
+		document.getElementById("owner").outerHTML = GetQueryString("owner") + "的画板";
+		document.getElementById("user").outerHTML = "用户" + GetQueryString("user");
+
+		// 颜色
+		let color = document.querySelector("#color");
+		// 清除
+		let cls = document.querySelector("#cls");
+		// 获取画布
+		let canvas = document.querySelector("#canvas");
+		// 粗细
+		let cu = document.querySelector("#cu");
+		// 获取画笔
+		let cxt = canvas.getContext('2d');
+		// 矩形
+		let rectangle = document.querySelector("#rectangle");
+		// 圆形
+		let round = document.querySelector("#round");
+
+		let offstL = canvas.offsetLeft;
+		let offstT = canvas.offsetTop;
+
+		canvas.onmousedown = function (e) {
+			// cxt.moveTo(e.clientX - offstL, e.clientY - offstT);
+			// // 开始本次绘画
+			// cxt.beginPath();
+			// // 线条颜色
+			// cxt.strokeStyle = color.value;
+			// // 线条粗细
+			// cxt.lineWidth = cu.value;
+			var start = e.clientX - offstL;
+			var end = e.clientY - offstT;
+			socket.send(document.getElementById("chmod").value + " " + GetQueryString("owner") + " print_move " + start + " " + end + " " + color.value + " " + cu.value);
+			canvas.onmousemove = function (e) {
+				var x = e.clientX - offstL;
+				var y = e.clientY - offstT;
+				socket.send(document.getElementById("chmod").value + " " + GetQueryString("owner") + " print_line " + x + " " + y);
+			}
+			canvas.onmouseup = function (e) {
+				socket.send(document.getElementById("chmod").value + " " + GetQueryString("owner") + " print_close");
+			};
+		};
+		function print_move(start, end, color, cu) {
+			cxt.moveTo(start, end);
+			cxt.beginPath();
+			cxt.strokeStyle = color;
+			cxt.lineWidth = cu;
+		}
+		function print_line(x, y) {
+			cxt.lineTo(x, y);
+			cxt.stroke();
+		}
+		function print_close() {
+			cxt.closePath();
+			canvas.onmousemove = null;
+		}
+		// 绘制矩形
+		rectangle.onclick = function () {
+			socket.send(document.getElementById("chmod").value + " " + GetQueryString("owner") + " print_rectangle");
+			// print_rectangle();
+		};
+
+		function print_rectangle() {
+			cxt.beginPath();
+			cxt.fillStyle = color.value;
+			cxt.fillRect(100, 150, 100, 300)
+			cxt.fill();
+			cxt.closePath();
+			cxt.stroke();
+		}
+
+		// 绘制圆形
+		round.onclick = function () {
+			socket.send(document.getElementById("chmod").value + " " + GetQueryString("owner") + " print_round");
+			// print_round();
+		}
+		function print_round() {
+			cxt.beginPath();
+			cxt.fillStyle = color.value;
+			cxt.arc(500, 200, 150, 0, Math.PI / 180 * 360, true);
+			// 线条颜色
+			cxt.closePath();
+			cxt.fill();
+			// cxt.stroke();
+		}
+
+		// 清除画布内容
+		cls.onclick = function () {
+			socket.send(document.getElementById("chmod").value + " " + GetQueryString("owner") + " print_clear");
+		}
+		function print_clear() {
+			cxt.clearRect(0, 0, canvas.width, canvas.height);
+		}
+
+		// window.setInterval("AutoRun()", 500);
+		socket = new WebSocket("ws://127.0.0.1:8080");
+		//监听所有的Web socket事件
+		socket.onopen = connectionOpen;
+		socket.onmessage = messageReceived;
+
+		function connectionOpen() {
+			alert("--- 连接成功 ---");
+		}
+
+		//消息接收事件响应
+		function messageReceived(e) {
+			// alert(e.data);
+			var arr = e.data.split(" ");
+			// alert(arr);
+			document.getElementById("chmod").value = arr[0];
+			if (document.getElementById("chmod").value == "1" && GetQueryString("owner") != GetQueryString("user")) {
+				//alert("user");
+			} else {
+				if (arr[1] == GetQueryString("owner")) {
+					if (arr[2] == "print_rectangle") { print_rectangle() };
+					if (arr[2] == "print_round") { print_round() };
+					if (arr[2] == "print_clear") { print_clear() };
+					if (arr[2] == "print_move") { print_move(arr[3], arr[4], arr[5], arr[6]) };
+					if (arr[2] == "print_line") { print_line(arr[3], arr[4]) };
+					if (arr[2] == "print_close") { print_close() };
+				}
+			}
+
+
+		}
+
+	</script>
+</body>
+
+</html>
