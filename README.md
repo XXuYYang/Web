@@ -5,20 +5,20 @@
 
 ## 界面构成
 
-1.登录界面
-&ensp;&ensp;&ensp;&ensp;你的名字：用户名称
-&ensp;&ensp;&ensp;&ensp;进入画布：其他用户的画布
-&ensp;&ensp;&ensp;&ensp;登&ensp;&ensp;&ensp;&ensp;录：进入相应的画布界面
-2.画布界面
-&ensp;&ensp;&ensp;&ensp;菜单栏：颜色选择
-&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;画笔粗细
-&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;清除图像按钮
-&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;绘制矩形按钮
-&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;绘制图按钮
-&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;用户“用户id”的画板
-&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;用户“用户id”
-&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;其它只读按钮
-&ensp;&ensp;&ensp;&ensp;画布域：可以绘制图形
+1.登录界面<br />
+&ensp;&ensp;&ensp;&ensp;你的名字：用户名称<br />
+&ensp;&ensp;&ensp;&ensp;进入画布：其他用户的画布<br />
+&ensp;&ensp;&ensp;&ensp;登&ensp;&ensp;&ensp;&ensp;录：进入相应的画布界面<br />
+2.画布界面<br />
+&ensp;&ensp;&ensp;&ensp;菜单栏：颜色选择<br />
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;画笔粗细<br />
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;清除图像按钮<br />
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;绘制矩形按钮<br />
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;绘制图按钮<br />
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;用户“用户id”的画板<br />
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;用户“用户id”<br />
+&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;其它只读按钮<br />
+&ensp;&ensp;&ensp;&ensp;画布域：可以绘制图形<br />
 
 
 ## 使用教程
