@@ -20,19 +20,20 @@
 &ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;&ensp;其它只读按钮<br />
 &ensp;&ensp;&ensp;&ensp;画布域：可以绘制图形<br />
 
-
+## 环境配置
+安装phpstudy，把php.exe添加到环境变量路径中。
 ## 使用教程
-1.启动服务器
-&ensp;&ensp;&ensp;&ensp;在控制台运行`php listen.php start`
-2.创建画布
-&ensp;&ensp;&ensp;&ensp;用户在登陆界面输入用户名和画布名称，就可以创建用户并创建属于自己的画布
-3.进入画布
-&ensp;&ensp;&ensp;&ensp;画布拥有者：创建画布完成即自动进入画布
-&ensp;&ensp;&ensp;&ensp;其他用户：输入自己的用户名称和想加入的画布名称即可进入
-4.绘制图形
-&ensp;&ensp;&ensp;&ensp;提供的图形：圆形、矩形
-&ensp;&ensp;&ensp;&ensp;用户可以自己绘制图案或者使用提供的图案进行绘制
-5.使用控制
-&ensp;&ensp;&ensp;&ensp;拥有者可以控制画布是否可以作画，当不限制时，进入该画布的用户都可以作画，切换为只读模式时，不可以作画
-6.效果展示
-&ensp;&ensp;&ensp;&ensp;见视频展示
+1.启动服务器<br />
+&ensp;&ensp;&ensp;&ensp;在控制台运行`php listen.php start`<br />
+2.创建画布<br />
+&ensp;&ensp;&ensp;&ensp;用户在登陆界面输入用户名和画布名称，就可以创建用户并创建属于自己的画布<br />
+3.进入画布<br />
+&ensp;&ensp;&ensp;&ensp;画布拥有者：创建画布完成即自动进入画布<br />
+&ensp;&ensp;&ensp;&ensp;其他用户：输入自己的用户名称和想加入的画布名称即可进入<br />
+4.绘制图形<br />
+&ensp;&ensp;&ensp;&ensp;提供的图形：圆形、矩形<br />
+&ensp;&ensp;&ensp;&ensp;用户可以自己绘制图案或者使用提供的图案进行绘制<br />
+5.使用控制<br />
+&ensp;&ensp;&ensp;&ensp;拥有者可以控制画布是否可以作画，当不限制时，进入该画布的用户都可以作画，切换为只读模式时，不可以作画<br />
+6.效果展示<br />
+&ensp;&ensp;&ensp;&ensp;见视频展示<br />
