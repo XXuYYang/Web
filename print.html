@@ -37,7 +37,7 @@
 			if (r != null) return unescape(r[2]); return null;
 		}
 		submit.onclick = function () {
-			document.getElementById("chmod").value = "1";
+			socket.send("chmod " + GetQueryString("owner"));
 		}
 
 		if (GetQueryString("owner") != GetQueryString("user")) { document.getElementById("submit").setAttribute("hidden", true); }
@@ -137,32 +137,24 @@
 		// window.setInterval("AutoRun()", 500);
 		socket = new WebSocket("ws://127.0.0.1:8080");
 		//监听所有的Web socket事件
-		socket.onopen = connectionOpen;
+		socket.onopen = function () { socket.send("onopen " + GetQueryString("owner") + " " + GetQueryString("user")); };
 		socket.onmessage = messageReceived;
-
-		function connectionOpen() {
-			alert("--- 连接成功 ---");
-		}
+		socket.onclose = function () { socket.send("onclose " + GetQueryString("owner") + " " + GetQueryString("user")); };
 
 		//消息接收事件响应
 		function messageReceived(e) {
 			// alert(e.data);
 			var arr = e.data.split(" ");
 			// alert(arr);
-			document.getElementById("chmod").value = arr[0];
-			if (document.getElementById("chmod").value == "1" && GetQueryString("owner") != GetQueryString("user")) {
-				//alert("user");
-			} else {
-				if (arr[1] == GetQueryString("owner")) {
-					if (arr[2] == "print_rectangle") { print_rectangle() };
-					if (arr[2] == "print_round") { print_round() };
-					if (arr[2] == "print_clear") { print_clear() };
-					if (arr[2] == "print_move") { print_move(arr[3], arr[4], arr[5], arr[6]) };
-					if (arr[2] == "print_line") { print_line(arr[3], arr[4]) };
-					if (arr[2] == "print_close") { print_close() };
-				}
-			}
 
+			if (arr.length > 2 && arr[1] == GetQueryString("owner")) {
+				if (arr[2] == "print_rectangle") { print_rectangle() };
+				if (arr[2] == "print_round") { print_round() };
+				if (arr[2] == "print_clear") { print_clear() };
+				if (arr[2] == "print_move") { print_move(arr[3], arr[4], arr[5], arr[6]) };
+				if (arr[2] == "print_line") { print_line(arr[3], arr[4]) };
+				if (arr[2] == "print_close") { print_close() };
+			}
 
 		}
 
